@@ -13,11 +13,10 @@ To clone this repository to your local machine, open your terminal and run the f
 
 bash
 Copy code
-git clone https://github.com/your-username/your-repository.git
-Replace your username with your GitHub username and your repository with the name of your repository.
+git clone https://github.com/teddycormier/Capstone.git
 
 ## Install .NET SDK
-To install the .NET SDK, please visit this link and follow the instructions based on your operating system.
+To install the .NET SDK, visit this link https://dotnet.microsoft.com/en-us/download and follow the instructions based on your operating system.
 
 After installing, verify the installation by running:
 
@@ -40,4 +39,7 @@ bash
 Copy code
 dotnet build
 dotnet run
-Access the application in your web browser by visiting http://localhost:5000 or https://localhost:5001.
+Access the application in your web browser by visiting http://localhost:5000 or https://localhost:5001. As shown in the console.
+
+# To Gain Server Access
+Please email me at tcormier@mail.endicott.edu with the IP address range you will use to run the application so the server can grant you access.
