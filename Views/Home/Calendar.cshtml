@@ -1,12 +1,143 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<style>
+
 <head>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
-<body>
-    <div id="txtWelcomeText" style="margin-top: 260px;">
-        <h1 class="display-4">Calendar</h1>
+<style>
+    .block {
+        width: 100%;
+        height: 700px;
+        margin-top: 20px;
+        margin-left: 15%;
+        font-family: Arial, sans-serif;
+        overflow: hidden;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    th {
+        border: 1px solid #ddd;
+        text-align: center;
+        padding: 8px;
+    }
+
+    td {
+        border: 1px solid #ddd;
+        text-align: center;
+        padding: 45px;
+    }
+
+    th {
+        background-color: #f2f2f2;
+    }
+
+    td {
+        cursor: pointer;
+    }
+
+    .gym-day {
+        background-color: #7fc97f;
+        color: white;
+    }
+
+    .legend {
+        margin-top: 20px;
+    }
+
+    .legend span {
+        display: inline-block;
+        margin-right: 10px;
+    }
+
+    .legend .gym-color {
+        width: 20px;
+        height: 20px;
+        background-color: #7fc97f;
+        border: 1px solid #ddd;
+        border-radius: 50%;
+        display: inline-block;
+        vertical-align: middle;
+        margin-right: 5px;
+    }
+
+    .floating-div-no-margin {
+        z-index: 2;
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .floating-div-no-margin .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 30px;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+</style>
+<div class="block" style="width: 100%; height: 700px; margin-top: 20%; margin-left: 0px !important">
+    <div style="z-index: 10000001;">
+        <table id="calendar"></table>
     </div>
-</body>
+    <div class="floating-div-no-margin">
+        <div class="block" style="margin-right: 200vh; width: 10vh; height: 5vh; overflow: visible !important">
+            <div class="legend">
+                <span><span class="gym-color"></span> Gym Day</span>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function generateCalendar(year, month) {
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDay = new Date(year, month, 1).getDay();
+
+        let html = "<table><tr><th>Sun</th><th>Mon</th><th>Tue</th><th>Wed</th><th>Thu</th><th>Fri</th><th>Sat</th></tr><tr>";
+
+        let day = 1;
+        for (let i = 0; i < 42; i++) {
+            if (i >= firstDay && day <= daysInMonth) {
+                let className = "";
+                if (day % 2 === 0) {
+                    className = "gym-day";
+                }
+                html += `<td class="${className}" onclick="toggleGymDay(this)">${day}</td>`;
+                day++;
+            } else {
+                html += "<td></td>";
+            }
+
+            if (i % 7 === 6) {
+                html += "</tr>";
+                if (day > daysInMonth) {
+                    break;
+                }
+                html += "<tr>";
+            }
+        }
+
+        html += "</table>";
+        document.getElementById("calendar").innerHTML = html;
+    }
+
+    function toggleGymDay(element) {
+        element.classList.toggle("gym-day");
+    }
+
+    generateCalendar(2023, 11);
+</script>

@@ -25,7 +25,7 @@ public class HomeController : Controller
 
     public IActionResult Dashboard()
     {
-        return View();
+        return View("~/Views/GymPopulation/Index.cshtml");
     }
 
     public IActionResult UserProfile()
@@ -34,6 +34,11 @@ public class HomeController : Controller
     }
 
     public IActionResult Calendar()
+    {
+        return View();
+    }
+
+    public IActionResult DB()
     {
         return View();
     }

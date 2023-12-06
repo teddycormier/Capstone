@@ -1,11 +1,236 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "User Profile";
 }
+
 <head>
     <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <div id="txtWelcomeText" style="margin-top: 260px;">
-        <h1 class="display-4">User Profile</h1>
+<style>
+    .floating-div {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 3vh;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+        width: 85%;
+    }
+
+    .floating-div-no-margin {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .floating-div-no-margin .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 30px;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .floating-div .profile-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+        font-weight: bold;
+        font-size: 30px;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .user-circle-profile-div {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 16px;
+    }
+
+    .user-circle-profile-div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: -15px;
+        margin-right: -15px;
+    }
+
+    .user-circle-fitness-div {
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        background-color: grey;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-size: 16px;
+    }
+
+    .user-circle-fitness-div {
+        position: absolute;
+        top: 0;
+        right: 0;
+        margin-top: 25px;
+        margin-right: 25px;
+    }
+
+    .profile-fields {
+        font-size: 18px;
+        font-weight: 100;
+    }
+
+    button {
+        cursor: pointer;
+        outline: 0;
+        display: inline-block;
+        font-weight: 400;
+        line-height: 1.5;
+        text-align: center;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: 6px 12px;
+        font-size: 1rem;
+        border-radius: .25rem;
+        transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+        color: #0d6efd;
+        border-color: #0d6efd;
+        margin-top: 40px;
+        margin-left: 10px;
+    }
+
+    button:hover {
+        color: #fff;
+        background-color: #0d6efd;
+        border-color: #0d6efd;
+    }
+
+    p {
+        padding: 10px;
+    }
+</style>
+<div class="block" style="width: 40vh; height: 45vh; margin-top: 20%; margin-left: 70vh">
+    <div style="z-index: 10000001;" class="floating-div">
+        <div class="profile-header">
+            <div class="profile-title">Profile</div>
+            <div class="user-circle-profile-div">
+                <i class="fas fa-user"></i>
+            </div>
+        </div>
+        <div class="profile-fields">
+            <p>Name: <span id="nameField">John Doe</span></p>
+            <p>Email: <span id="emailField">johndoe@example.com</span></p>
+            <p>Address: <span id="addressField">123 Main Street, City, Country</span></p>
+            <p>Phone Number: <span id="phoneField">+1234567890</span></p>
+            <p>Age: <span id="ageField">30</span></p>
+            <p>Occupation: <span id="occupationField">Web Developer</span></p>
+            <button style="cursor: pointer" onclick="enableEditProfile()">Edit</button>
+            <button style="cursor: pointer; display: none" onclick="saveChangesProfile()">Save</button>
+        </div>
     </div>
-</body>
+    <div class="floating-div-no-margin">
+        <div class="block" style="margin-right: 150vh; width: 60vh; height: 55vh;">
+            <div class="profile-header">
+                <div class="profile-title" style="padding: 35px; padding-bottom: 0px !important">Personal Fitness Information</div>
+                <div class="user-circle-fitness-div">
+                    <i class="fas fa-weight"></i>
+                </div>
+            </div>
+            <div class="profile-fields" style="margin-left: 35px">
+                <p>Weight: <span id="weightField">190 lbs</span></p>
+                <p>Height: <span id="heightField">6'1"</span></p>
+                <p>Workouts/Week: <span id="weightField">5</span></p>
+                <p>Squat PR: <span id="squatPRField">400 lbs</span></p>
+                <p>Bench Press PR: <span id="benchPressPRField">275 lbs</span></p>
+                <p>Deadlift PR: <span id="deadliftPRField">400 lbs</span></p>
+                <p>Overhead Press PR: <span id="overheadPressPRField">225 lbs</span></p>
+                <button style="cursor: pointer; display: inline-block; margin-top: 110px"
+                    onclick="enableEditFitness()">Edit</button>
+                <button style="cursor: pointer; display: none; margin-top: 110px"
+                    onclick="saveChangesFitness()">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    function enableEditProfile() {
+        var fields = document.querySelectorAll('.floating-div .profile-fields span');
+        fields.forEach(function (field) {
+            var value = field.textContent;
+            var input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('value', value);
+            input.style.height = '20px';
+            field.textContent = '';
+            field.appendChild(input);
+        });
+
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(1)').style.display = 'none';
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(2)').style.display = 'inline-block';
+    }
+
+    function saveChangesProfile() {
+        var inputs = document.querySelectorAll('.floating-div .profile-fields input');
+        inputs.forEach(function (input) {
+            var value = input.value;
+            var span = document.createElement('span');
+            span.textContent = value;
+            span.style.display = 'inline-block';
+            span.style.height = '20px';
+            input.parentNode.replaceChild(span, input);
+        });
+
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(1)').style.display = 'inline-block';
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(2)').style.display = 'none';
+    }
+
+    function enableEditFitness() {
+        var fields = document.querySelectorAll('.floating-div-no-margin .profile-fields span');
+        fields.forEach(function (field) {
+            var value = field.textContent;
+            var input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('value', value);
+            input.style.height = '20px';
+            field.textContent = '';
+            field.appendChild(input);
+        });
+
+        document.querySelector('.floating-div-no-margin .profile-fields button:nth-of-type(1)').style.display = 'none';
+        document.querySelector('.floating-div-no-margin .profile-fields button:nth-of-type(2)').style.display = 'inline-block';
+    }
+
+    function saveChangesFitness() {
+        var inputs = document.querySelectorAll('.floating-div-no-margin .profile-fields input');
+        inputs.forEach(function (input) {
+            var value = input.value;
+            var span = document.createElement('span');
+            span.textContent = value;
+            span.style.display = 'inline-block';
+            span.style.height = '20px';
+            input.parentNode.replaceChild(span, input);
+        });
+
+        document.querySelector('.floating-div-no-margin .profile-fields button:nth-of-type(1)').style.display = 'inline-block';
+        document.querySelector('.floating-div-no-margin .profile-fields button:nth-of-type(2)').style.display = 'none';
+    }
+</script>

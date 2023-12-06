@@ -1,0 +1,247 @@
+@model List<Capstone.Models.GymPopulationViewModel>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+}
+<style type="text/css">
+    .hidden {
+        display: none !important;
+    }
+
+    .chart {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-end;
+        width: 95vh;
+        height: 50vh;
+        padding: 20px;
+        margin-left: 3.5vh;
+        margin-top: 2vh;
+    }
+
+    .bar {
+        position: relative;
+        width: 7vh;
+        background-color: steelblue;
+        margin-right: 10px;
+        text-align: center;
+    }
+
+    .bar span {
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        right: 0;
+        color: white;
+    }
+
+    .chart-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .day-abbreviations {
+        justify-content: space-between;
+        width: 95vh;
+        margin-top: 10px;
+        display: inline-flex;
+    }
+
+    .day-abbreviation {
+        color: black !important;
+        font-weight: bold;
+        font-size: 18px;
+    }
+
+    .floating-div {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        margin-top: 2vh;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    .floating-div-no-margin {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        z-index: 1;
+        color: black;
+        font-weight: bold;
+        font-size: 30px;
+        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+    }
+
+    table {
+        width: 40vh;
+        border-collapse: collapse;
+    }
+
+    th {
+        padding: 8px;
+        text-align: right;
+    }
+
+    td {
+        padding: 8px;
+        padding-right: 20px;
+        text-align: right;
+        font-weight: 200 !important;
+    }
+</style>
+<div class="block" style="  width: 100%; height: 700px; margin-top: 20%; margin-left: 15%">
+    <div class="chart" id="chart">
+    </div>
+    <div class="day-abbreviations">
+        <div class="day-abbreviation" style="margin-left: 8.25vh">S</div>
+        <div class="day-abbreviation" style="margin-right: 1vh">M</div>
+        <div class="day-abbreviation" style="margin-right: .1vh">T</div>
+        <div class="day-abbreviation" style="margin-right: .1vh">W</div>
+        <div class="day-abbreviation" style="margin-right: .8vh">T</div>
+        <div class="day-abbreviation" style="margin-right: 1vh">F</div>
+        <div class="day-abbreviation" style="margin-right: 1.5vh">S</div>
+    </div>
+    <div class="floating-div">
+        <div class="chart-title">Endicott Gym Weekly Population</div>
+    </div>
+    <div class="floating-div-no-margin">
+        <div class="block" style="margin-right: 230vh; width: 45vh; height: 55vh;">
+            <table id="nameTable">
+                <thead>
+                    <tr>
+                        <th>Checking In...</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<form>
+    <table class="table table-responsive table-hover hidden">
+        <thead>
+            <tr class="table-active">
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+                <th>Sunday</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var entry in Model)
+                {
+                    <tr>
+                        <td>@entry.Monday</td>
+                        <td>@entry.Tuesday</td>
+                        <td>@entry.Wednesday</td>
+                        <td>@entry.Thursday</td>
+                        <td>@entry.Friday</td>
+                        <td>@entry.Saturday</td>
+                        <td>@entry.Sunday</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="6">
+                        <div>
+                            No data is currently available.
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</form>
+<script type="text/javascript">
+    function countOnesAndZeros() {
+        var columns = document.querySelectorAll('table tbody tr td');
+        var counts = {
+            Monday: { ones: 0, zeros: 0 },
+            Tuesday: { ones: 0, zeros: 0 },
+            Wednesday: { ones: 0, zeros: 0 },
+            Thursday: { ones: 0, zeros: 0 },
+            Friday: { ones: 0, zeros: 0 },
+            Saturday: { ones: 0, zeros: 0 },
+            Sunday: { ones: 0, zeros: 0 }
+        };
+
+        columns.forEach(function (cell, index) {
+            var dayOfWeek = Object.keys(counts)[index % 7];
+            var cellValue = parseInt(cell.innerText);
+            if (!isNaN(cellValue)) {
+                if (cellValue === 1) {
+                    counts[dayOfWeek].ones++;
+                } else if (cellValue === 0) {
+                    counts[dayOfWeek].zeros++;
+                }
+            }
+        });
+
+        return counts;
+    }
+
+    window.onload = function () {
+        const chart = document.getElementById('chart');
+        var counts = countOnesAndZeros();
+        for (var day in counts) {
+            const barWrapper = document.createElement('div');
+            barWrapper.classList.add('bar-wrapper');
+
+            const bar = document.createElement('div');
+            bar.classList.add('bar');
+            bar.style.height = `${counts[day].ones / .5}px`;
+            const spanCount = document.createElement('span');
+            spanCount.textContent = counts[day].ones;
+
+            if (Object.keys(counts).indexOf(day) % 2 === 0) {
+                bar.style.backgroundColor = '#0B335E';
+            } else {
+                bar.style.backgroundColor = '#007D61';
+            }
+
+            bar.appendChild(spanCount);
+            barWrapper.appendChild(bar);
+            chart.appendChild(barWrapper);
+        }
+    };
+
+    const names = ['Alice  ', 'Bob  ', 'Charlie  ', 'David  ', 'Eva  ', 'Frank  ', 'Grace  ', 'Henry  ', 'Ivy  ', 'Jack  ', 'Ted  ', 'Ryan  ', 'Tim  ', 'Cole  ', 'Lauren  ', 'Percy  ', 'Joe  ', 'Jason  '];
+    const tableBody = document.querySelector('#nameTable tbody');
+
+    function getRandomName() {
+        const randomIndex = Math.floor(Math.random() * names.length);
+        return names[randomIndex];
+    }
+
+    function updateTable() {
+        const newRow = document.createElement('tr');
+        const newCell = document.createElement('td');
+        const newName = document.createTextNode(getRandomName());
+
+        newCell.appendChild(newName);
+        newRow.appendChild(newCell);
+        tableBody.appendChild(newRow);
+
+        if (tableBody.rows.length > 10) {
+            tableBody.deleteRow(0);
+        }
+    }
+
+    setInterval(updateTable, 2000);
+</script>
