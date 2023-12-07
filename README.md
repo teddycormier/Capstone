@@ -45,4 +45,4 @@ Access the application in your web browser by visiting http://localhost:5000 or 
 Please email me at tcormier@mail.endicott.edu with the IP address range you will use to run the application so the server can grant you access.
 
 # NOTE
-This prototype was initially developed for compatibility with a standard 27-inch monitor. However, the current implementation lacks full support for smaller monitor displays regarding the viewport height (vh). For optimal user experience across various screen sizes, we recommend utilizing devices with screen dimensions similar to or larger than a 27-inch monitor until the necessary adjustments are made to accommodate smaller screens effectively. 
+This prototype was initially developed for compatibility with a standard 27-inch monitor. However, the current implementation lacks full support for smaller monitor displays regarding the viewport height (vh). For optimal user experience across various screen sizes, it is recommended to utilize devices with screen dimensions similar to or larger than a 27-inch monitor until the necessary adjustments are made to accommodate smaller screens effectively. 
