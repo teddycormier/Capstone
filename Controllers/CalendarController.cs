@@ -12,7 +12,7 @@ namespace Capstone.Controllers
     public class CalendarController : Controller
     {
         private string clientId = "651787363319-n581m7rneppaa1n9snc3a3l3ua9cbrvc.apps.googleusercontent.com";
-        private string clientSecret = "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";
+        private string clientS = "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";
         private string redirectUri;
 
         public CalendarController()
@@ -29,7 +29,7 @@ namespace Capstone.Controllers
                 ClientSecrets = new ClientSecrets
                 {
                     ClientId = clientId,
-                    ClientSecret = clientSecret
+                    ClientSecret = clientS
                 },
                 Scopes = scopes,
                 DataStore = new FileDataStore("Calendar.Api.Auth.Store")
@@ -48,7 +48,7 @@ namespace Capstone.Controllers
                 ClientSecrets = new ClientSecrets
                 {
                     ClientId = clientId,
-                    ClientSecret = clientSecret
+                    ClientSecret = clientS
                 },
                 Scopes = new[] { CalendarService.Scope.CalendarReadonly },
                 DataStore = new FileDataStore("Calendar.Api.Auth.Store")
