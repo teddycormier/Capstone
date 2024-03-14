@@ -11,6 +11,9 @@ builder.Services.AddDbContext<GymPopulationDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"))
 );
 
+// Register HttpClientFactory
+builder.Services.AddHttpClient();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

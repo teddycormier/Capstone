@@ -134,3 +134,10 @@ C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\Microsoft.Extensions.D
 C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\Mono.TextTemplating.dll
 C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\System.CodeDom.dll
 C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\libman.json
+C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\Newtonsoft.Json.dll
+C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\Google.Apis.dll
+C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\Google.Apis.Auth.dll
+C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\Google.Apis.Calendar.v3.dll
+C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\Google.Apis.Core.dll
+C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\System.Management.dll
+C:\Users\teddy\OneDrive\Desktop\Capstone\bin\Debug\net7.0\runtimes\win\lib\net7.0\System.Management.dll
