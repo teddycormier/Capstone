@@ -11,8 +11,8 @@ namespace Capstone.Controllers
 {
     public class CalendarController : Controller
     {
-        private string clientId = "651787363319-n581m7rneppaa1n9snc3a3l3ua9cbrvc.apps.googleusercontent.com";
-        private string clientSecret = "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";
+        // private string clientId = "651787363319-n581m7rneppaa1n9snc3a3l3ua9cbrvc.apps.googleusercontent.com";
+        // private string clientSecret = "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";
         private string redirectUri;
 
         public CalendarController()
