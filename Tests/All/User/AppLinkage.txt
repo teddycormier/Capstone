@@ -1,0 +1,5 @@
+Start by navigating to the home page of the application.
+Click on each link/buttons/menu items available on the home page one by one.
+Ensure that each link correctly navigates you to the intended destination.
+Test links that lead to other pages within the application (e.g., About Us, Contact Us).
+Verify that external links open in a new tab or window and direct you to the correct external website.

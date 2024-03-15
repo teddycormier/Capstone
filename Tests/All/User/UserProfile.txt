@@ -1,0 +1,36 @@
+WRITTEN BY CHATGPT
+
+User Profile Editing User Testing Script
+
+Introduction:
+Welcome to the user testing session for the User Controller module of our application. Your feedback will help us ensure the functionality and usability of our user profile editing feature. Today, we'll be focusing on testing the ability to view and edit user profiles.
+
+Task 1: Viewing User Profile
+
+Log in to the application using your credentials.
+Navigate to your user profile page.
+Take note of the layout and design of the page.
+Ensure that your user data is displayed accurately, including your first name, last name, and email address.
+Task 2: Editing User Profile
+
+Locate the "Edit Profile" button or link on the profile page.
+Click on the "Edit Profile" button to access the edit form.
+Verify that the edit form is pre-populated with your existing data.
+Make changes to your profile information (e.g., update your first name, last name, or email address).
+Submit the form to save the changes.
+Confirm that the changes are reflected in your profile.
+Test the edit functionality with different scenarios (e.g., valid changes, invalid inputs) to ensure robustness.
+Task 3: Error Handling
+
+Attempt to edit your profile with invalid or incomplete inputs (e.g., empty fields, invalid email format).
+Ensure that appropriate error messages are displayed if any validation errors occur.
+Test error scenarios such as server errors or network failures.
+Evaluate the clarity and helpfulness of error messages provided during the edit process.
+General Feedback:
+
+Overall, how would you rate your experience with editing your user profile?
+Were the edit form and validation messages intuitive and easy to understand?
+Did you encounter any bugs, errors, or unexpected behavior during the testing?
+Do you have any suggestions for improving the functionality or user experience of the profile editing feature?
+Conclusion:
+Thank you for participating in the user testing session for the User Controller module. Your feedback is invaluable in helping us enhance the user profile editing functionality. If you have any additional comments or suggestions, please feel free to share them before concluding the session.
