@@ -7,16 +7,24 @@ using Twilio.Types;
 
 public class TwilioController : Controller
 {
+    private readonly IConfiguration _configuration;
+
+    public TwilioController(IConfiguration configuration)
+    {
+        _configuration = configuration;
+    }
+
     [HttpPost]
     public ActionResult SendMessage(string phoneNumber, string messageBody)
     {
-        var accountSid = "AC2c0b9ced7ec78761a795181c11261a38";
-        var authToken = "a1dbeabfce9a82069bf416fcee0fc6b3";
+        var accountSid = _configuration["Twilio:AccountSid"];
+        var authToken = _configuration["Twilio:AuthToken"];
+        var twilioPhoneNumber = _configuration["Twilio:PhoneNumber"];
         TwilioClient.Init(accountSid, authToken);
 
         var messageOptions = new CreateMessageOptions(new PhoneNumber(phoneNumber))
         {
-            From = new PhoneNumber("+18447402377"), // My Twilio phone number
+            From = new PhoneNumber(twilioPhoneNumber), // My Twilio phone number
             Body = messageBody
         };
 

@@ -6,10 +6,12 @@ namespace MyMvcApp.Controllers;
 public class FitnessPlanController : Controller
 {
     private readonly IHttpClientFactory _clientFactory;
+    private readonly IConfiguration _configuration;
 
-    public FitnessPlanController(IHttpClientFactory clientFactory)
+    public FitnessPlanController(IHttpClientFactory clientFactory, IConfiguration configuration)
     {
         _clientFactory = clientFactory;
+        _configuration = configuration;
     }
 
     public IActionResult Index()
@@ -27,8 +29,8 @@ public class FitnessPlanController : Controller
             RequestUri = new Uri($"https://workout-planner1.p.rapidapi.com/customized?time="+ time +"&equipment="+ equipment +"&muscle="+ muscle +"&fitness_level="+ fitness_level +"&fitness_goals="+ fitness_goals +""),
             Headers =
             {
-                { "X-RapidAPI-Key", "7091effc2emshfa536272507b037p129d0djsn67dea0cf8dea" },
-                { "X-RapidAPI-Host", "workout-planner1.p.rapidapi.com" },
+                { "X-RapidAPI-Key", _configuration["RapidAPI:Key"] },
+                { "X-RapidAPI-Host", _configuration["RapidAPI:Host"] },
             },
         };
 
@@ -42,4 +44,5 @@ public class FitnessPlanController : Controller
         }
     }
 }
+
 

@@ -41,6 +41,10 @@ dotnet build
 dotnet run
 Access the application in your web browser by visiting http://localhost:5000 or https://localhost:5001. As shown in the console.
 
+*IF YOU HAVE ANY ERRORS IN REGARD TO LIBRARIES, PLEASE USE .NET TO INSTALL ALL PACKAGES*
+
+NOTE: in order to run this program you also need to subscribe to all APIs in the codebase
+
 # To Gain Server Access
 Please email me at tcormier@mail.endicott.edu with the IP address range you will use to run the application so the server can grant you access.
 
