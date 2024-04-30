@@ -1,0 +1,34 @@
+WRITTEN BY CHATGPT
+
+Fitness Plan Controller Tests User Testing Script
+
+Introduction:
+Welcome to the user testing session for the Fitness Plan Controller module of our application. Your feedback will help us ensure the functionality and reliability of our fitness planning feature. Today, we'll be focusing on testing the endpoint responsible for retrieving customized fitness plans.
+
+Task 1: Accessing the Fitness Plan Generator
+
+Navigate to the fitness plan generator page within the application.
+Take note of the layout and design of the page.
+Ensure that the page loads correctly without any errors.
+Task 2: Generating a Fitness Plan
+
+Fill out the form with various inputs such as time, equipment availability, targeted muscle groups, fitness level, and fitness goals.
+Submit the form to generate a customized fitness plan.
+Verify that the request is processed successfully and a fitness plan is returned.
+Check if the generated fitness plan matches the specified criteria.
+Confirm that the returned fitness plan is displayed properly on the page.
+Test the functionality with different combinations of inputs to ensure accuracy and reliability.
+Task 3: Error Handling
+
+Submit the form with invalid or incomplete inputs (e.g., missing required fields, invalid values).
+Verify that appropriate error messages are displayed to the user.
+Test error scenarios such as server errors or network failures.
+Evaluate the clarity and helpfulness of error messages provided to the user.
+General Feedback:
+
+Overall, how would you rate your experience with the Fitness Plan Controller module?
+Were the form inputs intuitive and easy to understand?
+Did you encounter any issues or unexpected behavior during the testing?
+Do you have any suggestions for improving the functionality or user experience of the fitness plan generator?
+Conclusion:
+Thank you for participating in the user testing session for the Fitness Plan Controller module. Your feedback is essential in helping us enhance the quality and usability of our fitness planning feature. If you have any additional comments or suggestions, please feel free to share them before concluding the session.

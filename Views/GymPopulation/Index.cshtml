@@ -4,125 +4,238 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Dashboard";
 }
+
+<head>
+    <link href="https://use.fontawesome.com/releases/v5.6.1/css/all.css" rel="stylesheet">
+</head>
 <style type="text/css">
-    .hidden {
-        display: none !important;
-    }
-
-    .chart {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-end;
-        width: 95vh;
-        height: 50vh;
-        padding: 20px;
-        margin-left: 3.5vh;
-        margin-top: 2vh;
-    }
-
-    .bar {
-        position: relative;
-        width: 7vh;
-        background-color: steelblue;
-        margin-right: 10px;
-        text-align: center;
-    }
-
-    .bar span {
-        position: absolute;
-        bottom: 5px;
-        left: 0;
-        right: 0;
-        color: white;
-    }
-
-    .chart-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .day-abbreviations {
-        justify-content: space-between;
-        width: 95vh;
-        margin-top: 10px;
-        display: inline-flex;
-    }
-
-    .day-abbreviation {
-        color: black !important;
-        font-weight: bold;
-        font-size: 18px;
-    }
-
-    .floating-div {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1;
-        color: black;
-        font-weight: bold;
-        font-size: 30px;
-        margin-top: 2vh;
-        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    }
-
-    .floating-div-no-margin {
-        position: absolute;
-        top: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        z-index: 1;
-        color: black;
-        font-weight: bold;
-        font-size: 30px;
-        font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-    }
-
-    table {
-        width: 40vh;
-        border-collapse: collapse;
-    }
-
-    th {
-        padding: 8px;
-        text-align: right;
-    }
-
-    td {
-        padding: 8px;
-        padding-right: 20px;
-        text-align: right;
-        font-weight: 200 !important;
-    }
 </style>
-<div class="block" style="  width: 100%; height: 700px; margin-top: 20%; margin-left: 15%">
-    <div class="chart" id="chart">
+<div
+    style="position: fixed; top: 52%; left: 0; font-family: 'Moderat'; font-size: 36px; transform: rotate(-90deg); transform-origin: left top; margin-left: 5vh; font-weight: bold">
+    Endicott
+</div>
+<div
+    style="position: fixed; top: 53%; right: 0; font-family: 'Moderat'; font-size: 36px; transform: rotate(90deg); transform-origin: right top; margin-right: 5vh; font-weight: bold">
+    College
+</div>
+<div id="dashboard" style="height: 700px; margin-top: 15%; display: flex; justify-content: space-between;">
+    <div class="block" style="width: 600px;">
+        <div id="weeklyChart" style="display: block;">
+            <div style="text-align: center">
+                <div style="font-family: 'Moderat'; font-weight: 100; font-size: 20px">Endicott Gym Weekly Population
+                </div>
+            </div>
+            <div style="margin-bottom: 60px">
+                <div class="chart" id="chart">
+                </div>
+                <div class="day-abbreviations" style="width: 600px !important;">
+                    <div id="test" class="day-abbreviation" style="margin-left: 6vh">S</div>
+                    <div class="day-abbreviation">M</div>
+                    <div class="day-abbreviation">T</div>
+                    <div class="day-abbreviation">W</div>
+                    <div class="day-abbreviation">T</div>
+                    <div class="day-abbreviation">F</div>
+                    <div class="day-abbreviation" style="margin-right: 6vh">S</div>
+                </div>
+            </div>
+        </div>
+        <div id="dailyChart" style="display: none;">
+            <div style="text-align: center">
+                <div style="font-family: 'Moderat'; font-weight: 100; font-size: 20px">Endicott Gym Daily Population
+                </div>
+            </div>
+            <div style="width: 600px; height: 600px;">
+                <canvas id="myChart"></canvas>
+            </div>
+        </div>
     </div>
-    <div class="day-abbreviations">
-        <div class="day-abbreviation" style="margin-left: 8.25vh">S</div>
-        <div class="day-abbreviation" style="margin-right: 1vh">M</div>
-        <div class="day-abbreviation" style="margin-right: .1vh">T</div>
-        <div class="day-abbreviation" style="margin-right: .1vh">W</div>
-        <div class="day-abbreviation" style="margin-right: .8vh">T</div>
-        <div class="day-abbreviation" style="margin-right: 1vh">F</div>
-        <div class="day-abbreviation" style="margin-right: 1.5vh">S</div>
+    <div class="block" style="width: 600px;  display: flex; justify-content: center; align-items: center;">
+        <p id="quoteDisplay" style="font-family: 'Moderat'; font-size: 20px; text-align: center"></p>
     </div>
-    <div class="floating-div">
-        <div class="chart-title">Endicott Gym Weekly Population</div>
+</div>
+<div style="position: absolute; left: 50%; transform: translateX(-50%); margin-top: 10vh;">
+    <a href="#fitnessPlan"><span class="arrow arrow-top-wide"></span></a>
+</div>
+<div id="fitnessPlan" style="height: 900px; margin-top: 33%; display: flex; justify-content: space-between;">
+    <div class="block"
+        style="width: 1300px; display: flex; justify-content: center; align-items: center; overflow: hidden">
+        <div class="form" id="formParentDiv" style="margin-bottom: 50px">
+            <label style="font-family: 'Moderat'; font-size: 30px;">Customize Your Fitness Plan</label>
+            <h3 class="instruction">* If you are looking to specify more than one thing, use a comma</h3>
+            <form id="fitnessPlanForm">
+                <!-- Time Selection -->
+                <div class="form-group">
+                    <label for="time">Select Workout Time:</label>
+                    <select id="time" name="time">
+                        <option value="10">10 minutes</option>
+                        <option value="20">20 minutes</option>
+                        <option value="30">30 minutes</option>
+                        <option value="40">40 minutes</option>
+                    </select>
+                </div>
+
+                <!-- Equipment Selection -->
+                <div class="form-group">
+                    <label for="equipment">Specify Equipment:</label>
+                    <input id="equipment" name="textEquipmenet" type="text" placeholder="Enter equipment here...">
+                </div>
+
+                <!-- Muscle Group Selection -->
+                <div class="form-group">
+                    <label for="muscle">Specify Muscle Group:</label>
+                    <input id="muscle" name="textMuscle" type="text" placeholder="Enter muscle group here...">
+                </div>
+
+                <!-- Fitness Level Selection -->
+                <div class="form-group">
+                    <label for="fitness_level">Specify Fitness Level:</label>
+                    <input id="fitness_level" name="textFitnessLvl" type="text"
+                        placeholder="Enter fitness level here...">
+                </div>
+
+                <!-- Fitness Goals Selection -->
+                <div class="form-group">
+                    <label for="fitness_goals">Select Fitness Goals:</label>
+                    <input id="fitness_goals" name="textFitnessGoals" type="text"
+                        placeholder="Enter fitness goals here...">
+                </div>
+
+                <!-- Submit Button -->
+                <div class="form-group">
+                    <button id="getFitnessPlanButton">Generate Workout</button>
+                </div>
+            </form>
+        </div>
+        <div class="loader" style="display: none;"></div>
+        <div class="type"></div>
+        <div id="smsButton" style="position: absolute; margin-top: 750px;">
+            <div class="frame" style="width: 1200px !important">
+                <a href="#" class="btn" id="backButton" style="display: none;">
+                    <i class="fa-solid fa-arrow-left" style="color: #555555"></i>
+                </a>
+                <div id="messageButtonContainer" style="position: relative; display: flex;">
+                    <a href="#" class="btn" id="messageButton">
+                        <i class="fa-regular fa-message" style="color: #53d769"></i>
+                    </a>
+                    <input style="display: none; color: #555555" class="numberInput" type="text" id="messageInput"
+                        placeholder="(---) ---  ---">
+                </div>
+                <a href="#" class="btn" id="copyButton">
+                    <i class="fa-regular fa-copy" style="color: grey"></i>
+                </a>
+                <a target="_blank" href="https://chat.openai.com/"
+                    style="width: 410px !important; margin-left: auto; margin-right: 15px">
+                    <img style="width: 400px !important" src="images/gptLogo.png" alt="gptLogo">
+                </a>
+            </div>
+        </div>
     </div>
-    <div class="floating-div-no-margin">
-        <div class="block" style="margin-right: 230vh; width: 45vh; height: 55vh;">
-            <table id="nameTable">
-                <thead>
-                    <tr>
-                        <th>Checking In...</th>
-                    </tr>
-                </thead>
-                <tbody>
-                </tbody>
-            </table>
+</div>
+</div>
+<div style="position: absolute; left: 50%; transform: translateX(-50%); margin-top: 10vh;">
+    <a href="#calendarParentDiv"><span class="arrow arrow-top-wide"></span></a>
+</div>
+<div id="calendarParentDiv"
+    style="height: 900px; margin-top: 17%; display: flex; justify-content: space-between; margin-left: 622px">
+    <div class="block"
+        style="width: 1300px;  display: flex; flex-direction: column; justify-content: center; align-items: center; overflow: hidden">
+        <div class="calendar">
+            <div class="header">
+                <h2 id="monthYear"></h2>
+            </div>
+            <div class="days"></div>
+        </div>
+        <div class="frame"
+            style="width: 1200px !important; margin-bottom: 37px; display: flex; justify-content: space-between;">
+            <a href="#" class="btn" id="backButtonCalendar">
+                <i class="fa-solid fa-arrow-left" style="color: #555555"></i>
+            </a>
+            <a href="#" class="btn" id="addButtonCalendar" style="width: 150px">
+                <span style="color: grey">Add Workout</span>
+            </a>
+            <a href="#" class="btn" id="nextButtonCalendar" style="margin-right: 20px">
+                <i class="fa-solid fa-arrow-right" style="color: #555555"></i>
+            </a>
+        </div>
+    </div>
+    <div id="addEventPopup"
+        style="display: none; flex-direction: column; align-items: center; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); z-index: 10000001; width: 300px;">
+        <h2 style="color: black; margin-bottom: 20px;">Add Gym Time</h2>
+        <label for="eventDay" style="font-weight: bold; margin-bottom: 10px; color: #555555">Day:</label>
+        <input type="number" id="eventDay" min="1" max="31"
+            style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; width: 100%;">
+        <label for="gymTime" style="font-weight: bold; margin-bottom: 10px; color: #555555">Gym Time:</label>
+        <input type="time" id="gymTime"
+            style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; width: 100%;">
+        <label for="eventColor" style="font-weight: bold; margin-bottom: 10px; color: #555555">Color:</label>
+        <input type="color" id="eventColor"
+            style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; width: 100%;">
+        <button id="saveEventButton"
+            style="background-color: black; color: white; border: none; border-radius: 4px; padding: 10px 20px; cursor: pointer; width: 100%;">Save
+            Gym Time</button>
+    </div>
+    <div id="editEventPopup"
+        style="display: none; flex-direction: column; align-items: center; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background-color: white; border-radius: 8px; padding: 20px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); z-index: 10000001; width: 300px;">
+        <h2 style="color: black; margin-bottom: 20px;">Edit Gym Time</h2>
+        <label for="editEventDay" style="font-weight: bold; margin-bottom: 10px; color: #555555">Day:</label>
+        <input type="number" id="editEventDay" min="1" max="31"
+            style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; width: 100%;">
+        <label for="editGymTime" style="font-weight: bold; margin-bottom: 10px; color: #555555">Gym Time:</label>
+        <input type="time" id="editGymTime"
+            style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; width: 100%;">
+        <label for="editEventColor" style="font-weight: bold; margin-bottom: 10px; color: #555555">Color:</label>
+        <input type="color" id="editEventColor"
+            style="padding: 8px; border: 1px solid #ccc; border-radius: 4px; margin-bottom: 10px; width: 100%;">
+        @* <button id="updateEventButton"
+        style="background-color: black; color: white; border: none; border-radius: 4px; padding: 10px 20px; cursor:
+        pointer; width: 100%;">Update
+        Gym Time</button> *@
+    </div>
+</div>
+<div style="position: absolute; left: 50%; transform: translateX(-50%); margin-top: 10vh;">
+    <a href="#userProfile"><span class="arrow arrow-top-wide"></span></a>
+</div>
+<div id="userProfile"
+    style="height: 700px; margin-top: 17%; display: flex; justify-content: space-between; margin-bottom: 12%">
+    <div class="block"
+        style="width: 600px; margin-left: 622px; display: flex; flex-direction: column; justify-content: center">
+        <div class="floating-div" style="margin-left: 40%; margin-bottom: 50px; margin-top: 90px">
+            <div style="font-family: 'Moderat'; font-weight: 100; font-size: 20px">User Profile</div>
+        </div>
+        <div class="floating-div" style="margin-left: 50px; color: grey">
+            <div class="profile-fields">
+                <p>Name: <span id="nameField"><span style="display: inline-block; height: 20px;">John Doe</span></span>
+                </p>
+                <p>Email: <span id="emailField"><span
+                            style="display: inline-block; height: 20px;">johndoe@example.com</span></span></p>
+                <p>Address: <span id="addressField"><span style="display: inline-block; height: 20px;">123 Main Street,
+                            City, Country</span></span></p>
+                <p>Phone Number: <span id="phoneField"><span
+                            style="display: inline-block; height: 20px;">+1234567890</span></span></p>
+                <p>Age: <span id="ageField"><span style="display: inline-block; height: 20px;">30</span></span></p>
+                <p>Occupation: <span id="occupationField"><span style="display: inline-block; height: 20px;">Web
+                            Developer</span></span></p>
+            </div>
+        </div>
+        <div class="frame"
+            style="width: 500px !important; margin-top: 190px; margin-bottom: 37px; display: flex; margin-left: 50px; height: 80px !important">
+            <a href="#" class="btn" id="editButtonUserProfile" onclick="enableEditProfile()">
+                <i class="far fa-edit" style="color: grey"></i>
+            </a>
+            <a style="margin-right: 20px; visibility: hidden;" href="#" class="btn" id="saveButtonUserProfile"
+                onclick="saveChangesProfile()">
+                <i class="far fa-save" style="color: #53d769"></i>
+            </a>
+            <a style="width: 100px; margin-left: 250px" id="userName" class="btn">John Doe</a>
+        </div>
+    </div>
+    <div class="block"
+        style="width: 600px; position: relative; margin-right: 622px; display: flex; flex-direction: column; justify-content: flex-start; align-items: center; overflow: hidden;">
+        <div style="overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; height: 730px; width: 100%;">
+            <p id="articles"
+                style="font-family: 'Moderat'; font-size: 20px; text-align: center; margin-top: 0; width: 100%;"></p>
+            <div class="loaderArticle"
+                style="display: none; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);"></div>
         </div>
     </div>
 </div>
@@ -168,6 +281,9 @@
         </tbody>
     </table>
 </form>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script type="text/javascript">
     function countOnesAndZeros() {
         var columns = document.querySelectorAll('table tbody tr td');
@@ -209,39 +325,572 @@
             const spanCount = document.createElement('span');
             spanCount.textContent = counts[day].ones;
 
-            if (Object.keys(counts).indexOf(day) % 2 === 0) {
-                bar.style.backgroundColor = '#0B335E';
-            } else {
-                bar.style.backgroundColor = '#007D61';
-            }
-
             bar.appendChild(spanCount);
             barWrapper.appendChild(bar);
             chart.appendChild(barWrapper);
         }
     };
 
-    const names = ['Alice  ', 'Bob  ', 'Charlie  ', 'David  ', 'Eva  ', 'Frank  ', 'Grace  ', 'Henry  ', 'Ivy  ', 'Jack  ', 'Ted  ', 'Ryan  ', 'Tim  ', 'Cole  ', 'Lauren  ', 'Percy  ', 'Joe  ', 'Jason  '];
-    const tableBody = document.querySelector('#nameTable tbody');
+    jQuery.noConflict()(function ($) {
+        $(document).ready(function () {
+            fetchArticles();
+            var workoutGenerated = false;
 
-    function getRandomName() {
-        const randomIndex = Math.floor(Math.random() * names.length);
-        return names[randomIndex];
-    }
+            $("#getFitnessPlanButton").click(function (event) {
+                $(".loader").css("display", "block");
+                $("#formParentDiv").css("display", "none");
+                $("#backButton").css("display", "block");
+                event.preventDefault(); // Prevent default form submission
 
-    function updateTable() {
-        const newRow = document.createElement('tr');
-        const newCell = document.createElement('td');
-        const newName = document.createTextNode(getRandomName());
+                console.log("Button clicked");
 
-        newCell.appendChild(newName);
-        newRow.appendChild(newCell);
-        tableBody.appendChild(newRow);
+                // Get the values from the text input fields
+                var time = document.getElementById('time').value;
+                var equipment = document.getElementById('equipment').value;
+                var muscle = document.getElementById('muscle').value;
+                var fitness_level = document.getElementById('fitness_level').value;
+                var fitness_goals = document.getElementById('fitness_goals').value;
 
-        if (tableBody.rows.length > 10) {
-            tableBody.deleteRow(0);
+                // Construct the URL
+                var url = "@Url.Action("GetFitnessPlan", "FitnessPlan")" + "?time=" + time + "&equipment=" + encodeURIComponent(equipment) + "&muscle=" + encodeURIComponent(muscle) + "&fitness_level=" + encodeURIComponent(fitness_level) + "&fitness_goals=" + encodeURIComponent(fitness_goals);
+
+                console.log("URL:", url);
+
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: {
+                        time: time,
+                        equipment: equipment,
+                        muscle: muscle,
+                        fitness_level: fitness_level,
+                        fitness_goals: fitness_goals
+                    },
+                    success: function (response) {
+                        console.log("Fitness plan retrieved:", response);
+                        $(".loader").css("display", "none");
+                        $(".type").html("").css("display", "block");
+
+                        // Parse the JSON response
+                        var planData = JSON.parse(response.plan);
+
+                        // Initialize the array for the fitness plan
+                        var str = [];
+
+                        // Construct the readable text for the fitness plan
+                        str.push("Warm Up:");
+                        planData['Warm Up'].forEach(function (warmUpExercise) {
+                            str.push("- " + warmUpExercise.Exercise + ": " + warmUpExercise.Time);
+                        });
+
+                        str.push("Exercises:");
+                        planData.Exercises.forEach(function (exercise) {
+                            str.push("- " + exercise.Exercise + ": " + exercise.Sets + ", " + exercise.Reps);
+                        });
+
+                        str.push("Cool Down:");
+                        planData['Cool Down'].forEach(function (coolDownExercise) {
+                            str.push("- " + coolDownExercise.Exercise + ": " + coolDownExercise.Time);
+                        });
+
+                        // Function to create typing effect for each line
+                        function typeLine($element, line, delay) {
+                            var characters = line.split('');
+                            var currentIndex = 0;
+
+                            function typeNext() {
+                                if (currentIndex < characters.length) {
+                                    $element.append(characters[currentIndex++]);
+                                    setTimeout(typeNext, delay);
+                                }
+                            }
+
+                            typeNext();
+                        }
+
+                        // Calculate total time required for typing each line
+                        var totalDelay = str.reduce(function (acc, line) {
+                            return acc + (line.length * 10); // Adjust the delay per character as needed
+                        }, 0);
+
+                        // Iterate over each line and apply typing effect
+                        var currentDelay = 0;
+                        str.forEach(function (line) {
+                            var $lineElement = $('<div></div>').appendTo('.type');
+                            setTimeout(function () {
+                                typeLine($lineElement, line, 10);
+                            }, currentDelay);
+                            currentDelay += line.length * 10; // Adjust the delay per character as needed
+                        });
+
+                        workoutGenerated = true;
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error retrieving fitness plan:", error);
+                    }
+                });
+            });
+            $('#messageButton').click(function () {
+                // If workout has not been generated, log message to console
+                if (!workoutGenerated) {
+                    console.log("Please generate a workout before sharing.");
+                    return;
+                }
+
+                $('#messageInput').toggle().css('width', function () {
+                    return $(this).is(':visible') ? '100px' : '0';
+                });
+
+                var phoneNumber = $('#messageInput').val(); // Get phone number from input
+
+                // If phone number is not entered, log message to console and return
+                if (!phoneNumber) {
+                    console.log("Please enter a phone number before sharing.");
+                    return;
+                }
+
+                console.log("Phone number:", phoneNumber);
+                var messageBody = $('.type').text(); // Replace with your message
+                console.log("Message body:", messageBody);
+
+                $.ajax({
+                    url: '/Twilio/SendMessage',
+                    type: 'POST',
+                    data: {
+                        phoneNumber: phoneNumber,
+                        messageBody: messageBody
+                    },
+                    success: function (response) {
+                        alert('Message sent successfully!');
+                    },
+                    error: function (xhr, status, error) {
+                        alert('Failed to send message. Please try again later.');
+                    }
+                });
+            });
+
+            $('#copyButton').click(function () {
+                // If workout has not been generated, log message to console
+                if (!workoutGenerated) {
+                    console.log("Please generate a workout before sharing.");
+                    return;
+                }
+                var textToCopy = "";
+                $('.type div').each(function () {
+                    textToCopy += $(this).text() + "\n";
+                });
+                var tempInput = document.createElement("textarea");
+                tempInput.value = textToCopy;
+                document.body.appendChild(tempInput);
+                tempInput.select();
+                document.execCommand("copy");
+                document.body.removeChild(tempInput);
+                alert("Copied to clipboard: " + textToCopy);
+            });
+
+            $("#backButton").click(function () {
+                $(".type").css("display", "none");
+                $("#backButton").css("display", "none");
+                $("#formParentDiv").css("display", "block");
+            });
+        });
+    });
+
+    async function fetchQuote() {
+        const url = 'https://quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com/quote?token=ipworld.info';
+        const options = {
+            method: 'GET',
+            headers: {
+                'X-RapidAPI-Key': '7091effc2emshfa536272507b037p129d0djsn67dea0cf8dea',
+                'X-RapidAPI-Host': 'quotes-inspirational-quotes-motivational-quotes.p.rapidapi.com'
+            }
+        };
+
+        try {
+            const response = await fetch(url, options);
+            const data = await response.json();
+            const quote = data.text;
+            const author = data.author;
+
+            document.getElementById('quoteDisplay').innerHTML = `"${quote}"<br>- ${author}`;
+        } catch (error) {
+            console.error(error);
         }
     }
 
-    setInterval(updateTable, 2000);
+    // Call the fetchQuote function after the DOM has loaded
+    document.addEventListener('DOMContentLoaded', function () {
+        fetchQuote();
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            var target = document.querySelector(this.getAttribute('href'));
+            var headerOffset = 100; // 100px offset for header
+            var elementPosition = target.getBoundingClientRect().top;
+            var offsetPosition = elementPosition - headerOffset;
+
+            window.scrollTo({
+                top: offsetPosition,
+                behavior: "smooth"
+            });
+        });
+    });
+
+    document.addEventListener('DOMContentLoaded', function () {
+        let events = JSON.parse(localStorage.getItem('events')) || {};
+
+        const testDailyChart = document.getElementById('test');
+        testDailyChart.addEventListener('click', function () {
+            document.getElementById('weeklyChart').style.display = 'none';
+            document.getElementById('dailyChart').style.display = 'block';
+        });
+
+        const currentDate = new Date();
+        let currentMonth = currentDate.getMonth();
+        let currentYear = currentDate.getFullYear();
+        const monthYearElement = document.getElementById('monthYear');
+        const prevMonthButton = document.getElementById('prevMonth');
+        const nextMonthButton = document.getElementById('nextMonth');
+        const daysElement = document.querySelector('.days');
+
+        const editEventPopup = document.getElementById('editEventPopup');
+        const editEventDayInput = document.getElementById('editEventDay');
+        const editGymTimeInput = document.getElementById('editGymTime');
+        const editEventColorInput = document.getElementById('editEventColor');
+        const updateEventButton = document.getElementById('updateEventButton');
+        const deleteEventButton = document.getElementById('deleteEventButton');
+
+        function displayEvent(day, gymTime, color, eventId) {
+            const dayElement = daysElement.children[day - 1];
+            const gymTimeElement = document.createElement('div');
+            gymTimeElement.textContent = gymTime;
+            gymTimeElement.style.backgroundColor = `rgba(${parseInt(color.slice(1, 3), 16)}, ${parseInt(color.slice(3, 5), 16)}, ${parseInt(color.slice(5, 7), 16)}, 0.4)`;
+            gymTimeElement.style.color = 'black';
+            gymTimeElement.style.padding = '2px';
+            gymTimeElement.style.margin = '1px 0';
+            gymTimeElement.style.borderRadius = '10px';
+            dayElement.appendChild(gymTimeElement);
+
+            if (!events[day]) {
+                events[day] = {};
+            }
+
+            events[day][gymTime] = gymTimeElement;
+
+            gymTimeElement.addEventListener('click', function () {
+                document.getElementById('editEventDay').value = day;
+                document.getElementById('editGymTime').value = gymTime;
+                document.getElementById('editEventColor').value = color;
+                document.getElementById('editEventPopup').style.display = 'block';
+
+                let deleteButton = document.getElementById('deleteEventButton');
+
+                // If the delete button doesn't exist, create it
+                if (!deleteButton) {
+                    deleteButton = document.createElement('button');
+                    deleteButton.id = 'deleteEventButton';
+                    deleteButton.textContent = 'Delete Gym Time';
+                    deleteButton.style.backgroundColor = 'red';
+                    deleteButton.style.color = 'white';
+                    deleteButton.style.border = 'none';
+                    deleteButton.style.borderRadius = '4px';
+                    deleteButton.style.padding = '10px 20px';
+                    deleteButton.style.cursor = 'pointer';
+                    deleteButton.style.width = '100%';
+                    deleteButton.style.marginTop = '10px';
+                    document.getElementById('editEventPopup').appendChild(deleteButton);
+                }
+
+                // Remove all previous event listeners
+                const newDeleteButton = deleteButton.cloneNode(true);
+                deleteButton.parentNode.replaceChild(newDeleteButton, deleteButton);
+                deleteButton = newDeleteButton;
+
+                // Add the event listener to the delete button
+                deleteButton.addEventListener('click', function () {
+                    // Delete the event from local storage
+                    const eventKey = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                    const dayEvents = events[eventKey];
+                    const index = dayEvents.findIndex(event => event.id === eventId);
+                    if (index !== -1) {
+                        dayEvents.splice(index, 1);
+                        localStorage.setItem('events', JSON.stringify(events));
+                    }
+
+                    // Delete the event from the DOM
+                    gymTimeElement.remove();
+
+                    // Hide the popup
+                    document.getElementById('editEventPopup').style.display = 'none';
+                });
+            });
+        }
+
+        function generateCalendar() {
+            daysElement.innerHTML = '';
+            monthYearElement.textContent = `${getMonthName(currentMonth)} ${currentYear}`;
+
+            const firstDayOfMonth = new Date(currentYear, currentMonth, 1).getDay();
+            const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+
+            for (let i = 0; i < firstDayOfMonth; i++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                daysElement.appendChild(dayElement);
+            }
+
+            for (let day = 1; day <= daysInMonth; day++) {
+                const dayElement = document.createElement('div');
+                dayElement.classList.add('day');
+                dayElement.textContent = day;
+                daysElement.appendChild(dayElement);
+
+                // Retrieve the events object from local storage
+                const events = JSON.parse(localStorage.getItem('events') || '{}');
+
+                // Create the eventKey with 1-based month and 2-digit day
+                const eventKey = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+                if (events[eventKey]) {
+                    // Loop through each event associated with the day and display it
+                    for (const event of Object.values(events[eventKey])) {
+                        displayEvent(day, event.gymTime, event.color, event.id);
+                    }
+                }
+            }
+        }
+
+        const addEventButton = document.getElementById('addButtonCalendar');
+        const addEventPopup = document.getElementById('addEventPopup');
+        const eventDayInput = document.getElementById('eventDay');
+        const gymTimeInput = document.getElementById('gymTime');
+        const saveEventButton = document.getElementById('saveEventButton');
+
+        addEventButton.addEventListener('click', function () {
+            addEventPopup.style.display = 'block';
+        });
+
+        saveEventButton.addEventListener('click', function () {
+            const day = eventDayInput.value;
+            let gymTime = gymTimeInput.value;
+            const color = document.getElementById('eventColor').value;
+            if (day && gymTime) {
+                let [hour, minute] = gymTime.split(':');
+                const period = +hour < 12 ? 'AM' : 'PM';
+                hour = hour % 12 || 12;
+                gymTime = `${hour}:${minute} ${period}`;
+
+                // Generate a unique event ID
+                const eventId = generateEventId();
+
+                // Construct the event key
+                const eventKey = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+
+                // Add the event to the events object with the event ID
+                if (!events[eventKey]) {
+                    events[eventKey] = [];
+                }
+                events[eventKey].push({ id: eventId, gymTime, color });
+
+                // Store the updated events object in local storage
+                localStorage.setItem('events', JSON.stringify(events));
+
+                // Display the event
+                displayEvent(day, gymTime, color, eventId);
+            }
+
+            addEventPopup.style.display = 'none';
+        });
+
+        function generateEventId() {
+            return Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+        }
+
+        function getMonthName(monthIndex) {
+            const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+            return months[monthIndex];
+        }
+
+        generateCalendar();
+
+        document.getElementById('backButtonCalendar').addEventListener('click', function () {
+            currentMonth--;
+            if (currentMonth < 0) {
+                currentMonth = 11;
+                currentYear--;
+            }
+            generateCalendar();
+        });
+
+        document.getElementById('nextButtonCalendar').addEventListener('click', function () {
+            currentMonth++;
+            if (currentMonth > 11) {
+                currentMonth = 0;
+                currentYear++;
+            }
+            generateCalendar();
+        });
+
+        document.getElementById('updateEventButton').addEventListener('click', function () {
+            console.log('Update event button clicked');
+            const day = Number(document.getElementById('editEventDay').value);
+            const gymTime = document.getElementById('editGymTime').value;
+            const color = document.getElementById('editEventColor').value;
+
+            // Retrieve the events object from local storage
+            const events = JSON.parse(localStorage.getItem('events') || '{}');
+            console.log('Retrieved events from local storage:', events);
+
+            // Ensure an event exists at the specified day
+            const eventKey = `${currentYear}-${(currentMonth + 1).toString().padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+            if (events[eventKey]) {
+                console.log('Event exists for this day');
+                // Update the event in the events object
+                events[eventKey].gymTime = gymTime;
+                events[eventKey].color = color;
+
+                // Store the updated events object in local storage
+                localStorage.setItem('events', JSON.stringify(events));
+                console.log('Updated events stored in local storage');
+            }
+
+            // Close the popup
+            document.getElementById('editEventPopup').style.display = 'none';
+        });
+
+        document.getElementById('deleteEventButton').addEventListener('click', function () {
+            const eventId = document.getElementById('editEventId').value;
+
+            // Retrieve the events object from local storage
+            const events = JSON.parse(localStorage.getItem('events') || '{}');
+
+            // Iterate over each day's events and remove the event with the matching ID
+            for (const dayEvents of Object.values(events)) {
+                const index = dayEvents.findIndex(event => event.id === eventId);
+                if (index !== -1) {
+                    dayEvents.splice(index, 1);
+                    break; // Stop searching after finding and removing the event
+                }
+            }
+
+            // Store the updated events object in local storage
+            localStorage.setItem('events', JSON.stringify(events));
+
+            // Close the popup
+            document.getElementById('editEventPopup').style.display = 'none';
+        });
+    });
+
+    function enableEditProfile() {
+        $('#saveButtonUserProfile').css('visibility', 'visible');
+        var fields = document.querySelectorAll('.floating-div .profile-fields span');
+        fields.forEach(function (field) {
+            var value = field.textContent;
+            var input = document.createElement('input');
+            input.setAttribute('type', 'text');
+            input.setAttribute('value', value);
+            input.style.height = '20px';
+            field.textContent = '';
+            field.appendChild(input);
+        });
+
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(1)').style.visibility = 'hidden';
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(2)').style.visibility = 'visible';
+    }
+
+
+    function saveChangesProfile() {
+        $('#saveButtonUserProfile').css('visibility', 'hidden');
+        var inputs = document.querySelectorAll('.floating-div .profile-fields input');
+        inputs.forEach(function (input) {
+            var value = input.value;
+            var span = document.createElement('span');
+            span.textContent = value;
+            span.style.display = 'inline-block';
+            span.style.height = '20px';
+            input.parentNode.replaceChild(span, input);
+        });
+
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(1)').style.display = 'inline-block';
+        document.querySelector('.floating-div .profile-fields button:nth-of-type(2)').style.display = 'none';
+    }
+
+    function fetchArticles() {
+        $(".loaderArticle").css("display", "block");
+        $.ajax({
+            url: 'Article/GetArticles',
+            type: 'GET',
+            success: function (response) {
+                $(".loaderArticle").css("display", "none");
+                displayArticles(response);
+            },
+            error: function (xhr, status, error) {
+                console.error('Error fetching articles:', error);
+            }
+        });
+    }
+
+    function displayArticles(articles) {
+        const articleList = $('#articles');
+        articleList.empty();
+        articles.forEach(article => {
+            const articleDiv = $(`
+                <div style="height: 400px; width: 100%; position: relative; margin-bottom: 10px;">
+                    <img src="${article.imageUrl}" alt="${article.title}" style="width: 100%; height: 400px; object-fit: cover; object-position: top; display: block;">
+                    <a href="${article.url}" target="_blank" style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: black; text-align: center; width: 100%; padding: 50px; text-decoration: none;"><span style="background-color: rgba(255, 255, 255); border-radius: 40px; padding-right: 8px; padding-bottom: 3px; padding-left: 8px;">${article.title}</span></a>
+                </div>
+            `);
+            articleList.append(articleDiv);
+        });
+    }
+
+    var ctx = document.getElementById('myChart').getContext('2d');
+    var myChart = new Chart(ctx, {
+        type: 'bar', // changed to 'bar'
+        data: {
+            labels: Array.from({ length: 17 }, (_, i) => (i + 7) % 12 === 0 ? 12 + (i < 5 ? ' AM' : ' PM') : (i + 7) % 12 + (i < 5 ? ' AM' : ' PM')), // generates times from 7 AM to 11 PM
+            datasets: [{
+                label: '# of Students',
+                data: [12, 19, 60, 5, 2, 3, 12, 19, 3, 5, 2, 3, 12, 19, 3, 5, 2], // adjust this to match the length of your labels array
+                backgroundColor: 'black', // set the bar color to black
+                borderColor: 'black',
+            }]
+        },
+        options: {
+            responsive: false,
+            maintainAspectRatio: false,
+            indexAxis: 'y',
+            plugins: {
+                legend: {
+                    labels: {
+                        color: 'black' // set the legend labels color to black
+                    }
+                }
+            },
+            scales: {
+                x: {
+                    beginAtZero: true,
+                    ticks: {
+                        stepSize: 10,
+                        color: 'black' // set the x-axis labels color to black
+                    },
+                    grid: {
+                        display: false
+                    }
+                },
+                y: {
+                    beginAtZero: true,
+                    ticks: {
+                        autoSkip: false,
+                        color: 'black' // set the y-axis labels color to black
+                    },
+                    grid: {
+                        display: false
+                    }
+                }
+            }
+        }
+    });
 </script>

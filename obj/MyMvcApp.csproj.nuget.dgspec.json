@@ -38,9 +38,21 @@
         "net7.0": {
           "targetAlias": "net7.0",
           "dependencies": {
+            "Cronofy": {
+              "target": "Package",
+              "version": "[1.12.4, )"
+            },
             "Google.Apis.Calendar.v3": {
               "target": "Package",
               "version": "[1.67.0.3297, )"
+            },
+            "Micro": {
+              "target": "Package",
+              "version": "[1.0.0, )"
+            },
+            "Microsoft.AspNetCore.Mvc.Core": {
+              "target": "Package",
+              "version": "[2.2.5, )"
             },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -79,6 +91,18 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
+            },
+            "Selenium.Webdriver": {
+              "target": "Package",
+              "version": "[4.19.0, )"
+            },
+            "Selenium.Webdriver.ChromeDriver": {
+              "target": "Package",
+              "version": "[123.0.6312.12200, )"
+            },
+            "Twilio": {
+              "target": "Package",
+              "version": "[7.0.4, )"
             },
             "bootstrap": {
               "target": "Package",

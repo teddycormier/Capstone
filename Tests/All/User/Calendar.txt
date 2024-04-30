@@ -1,0 +1,31 @@
+WRITTEN BY CHATGPT
+
+Calendar Controller Module User Testing Script
+
+Introduction:
+Welcome to the user testing session for the Calendar Controller module of our application. Your feedback is vital in ensuring the functionality and usability of our software. Today, we will be testing the Calendar Controller module, specifically focusing on the authorization flow and OAuth callback process.
+
+Task 1: Authorization Flow
+
+Click on the "Authorize" button.
+You will be redirected to a page to link your Google account.
+Follow the instructions to link your Google account.
+After linking, ensure that you are redirected back to our application.
+Note any unexpected behavior, errors, or inconsistencies during the authorization process.
+Provide feedback on the clarity and ease of linking your Google account.
+Task 2: OAuth Callback
+
+After authorizing, you will be redirected to the OAuth callback page.
+Review the page layout and content.
+Check if the events from your Google Calendar are correctly displayed.
+Verify if the listed events match those in your Google Calendar.
+Note any discrepancies or issues encountered during the OAuth callback process.
+Share your thoughts on the usability and effectiveness of accessing your Google Calendar events.
+General Feedback:
+
+Overall, how would you rate your experience with linking your Google account and accessing calendar events?
+Were the instructions clear and easy to follow?
+Did you encounter any bugs, errors, or unexpected behaviors during the testing?
+Do you have any suggestions for improving the functionality or user interface of the Calendar Controller module?
+Conclusion:
+Thank you for participating in the user testing session for the Calendar Controller module. Your feedback is invaluable in helping us refine and enhance our application. If you have any additional comments or suggestions, please feel free to share them before concluding the session.

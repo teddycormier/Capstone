@@ -20,7 +20,7 @@ public class HomeController : Controller
 
     public IActionResult FitnessPlan()
     {
-        return View();
+        return View("~/Views/Shared/_FitnessPlan.cshtml");
     }
 
     public IActionResult Dashboard()
